@@ -17,8 +17,6 @@ export default function ResultCard({ result, showNearby = true }: ResultCardProp
                 ? "var(--confidence-medium)"
                 : "var(--confidence-low)";
 
-    const nearbyContext = nearbyItems.map((n) => n.assetNumber).join(", ");
-
     function copyToClipboard() {
         const text = [
             `Asset: ${item.assetNumber}`,
