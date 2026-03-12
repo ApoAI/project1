@@ -9,6 +9,17 @@ export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const router = useRouter();
 
+    function getSafeNextPath(): string {
+        const params = new URLSearchParams(window.location.search);
+        const nextPath = params.get("next") || "/";
+
+        if (!nextPath.startsWith("/") || nextPath.startsWith("//")) {
+            return "/";
+        }
+
+        return nextPath;
+    }
+
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         setLoading(true);
@@ -24,7 +35,8 @@ export default function LoginPage() {
             const data = await res.json();
 
             if (data.success) {
-                router.push("/");
+                const nextPath = getSafeNextPath();
+                router.push(nextPath);
                 router.refresh();
             } else {
                 setError(data.error || "Incorrect password");
