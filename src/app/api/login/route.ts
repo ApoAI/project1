@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { hashPassword } from "@/lib/auth";
+import { hashPassword } from "@/lib/password-hash";
 
 /**
  * Login API route.
