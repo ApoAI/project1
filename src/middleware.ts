@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { hashPassword } from "@/lib/password-hash";
+import { hashPassword } from "./lib/password-hash";
 
 const AUTH_COOKIE = "costume-auth";
 
@@ -8,9 +8,11 @@ function isPublicPath(pathname: string): boolean {
     pathname === "/login" ||
     pathname === "/api/login" ||
     pathname.startsWith("/_next") ||
+    pathname.startsWith("/_vercel") ||
     pathname.startsWith("/favicon") ||
     pathname.startsWith("/sitemap") ||
-    pathname.startsWith("/robots")
+    pathname.startsWith("/robots") ||
+    pathname.includes(".")
   );
 }
 
@@ -39,5 +41,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)"],
+  matcher: ["/:path*"],
 };
