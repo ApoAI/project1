@@ -24,7 +24,9 @@ export default function LoginPage() {
             const data = await res.json();
 
             if (data.success) {
-                router.push("/");
+                const params = new URLSearchParams(window.location.search);
+                const nextPath = params.get("next") || "/";
+                router.push(nextPath);
                 router.refresh();
             } else {
                 setError(data.error || "Incorrect password");

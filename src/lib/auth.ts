@@ -1,14 +1,6 @@
 import { cookies } from "next/headers";
+import { hashPassword } from "@/lib/password-hash";
 
-export function hashPassword(pw: string): string {
-    let hash = 0;
-    for (let i = 0; i < pw.length; i++) {
-        const char = pw.charCodeAt(i);
-        hash = (hash << 5) - hash + char;
-        hash |= 0;
-    }
-    return "cal_" + Math.abs(hash).toString(36);
-}
 
 export async function isAuthenticated(): Promise<boolean> {
     const password = process.env.SITE_PASSWORD || "";
